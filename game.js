@@ -7,7 +7,7 @@ var currentlyCheckingArrayPosition = 0
 disableButtons()
 
 async function reset() {
-    $('#level-title').html("Game Over, Press Any Key to Restart")
+    $('#level-title').html("Previous Highscore: " + level + "\nPress Any Key to Restart")
     userClickedPattern = []
     gamePattern = []
     level = 0
@@ -19,12 +19,12 @@ async function nextSequence() {
     var randomNumber = Math.floor(Math.random() * 4)
     var randomChosenColor = buttonColors[randomNumber]
     gamePattern.push(randomChosenColor)
+    level += 1
+    $('#level-title').text('Level ' + level)
+    currentlyCheckingArrayPosition = 0;
 
     await playSequence()
 
-    $('#level-title').text('Level ' + level)
-    level += 1
-    currentlyCheckingArrayPosition = 0;
 }
 
 async function sleep(msec) {
@@ -34,7 +34,7 @@ async function sleep(msec) {
 async function playSequence() {
     disableButtons()
     for (let color of gamePattern) {
-        await sleep(1000)
+        await sleep(700)
         blink(color)
         playSound(color)
         // const finished = await blink(color);
@@ -76,6 +76,7 @@ $("div[type='button']").click(async function (event) {
         $('body').addClass('game-over')
         setTimeout(function () { $('body').removeClass('game-over') }, 200)
         disableButtons();
+        enablePlayButton();
         await reset();
     }
 })
@@ -85,6 +86,16 @@ $(document).on('keypress', async function () {
         nextSequence()
         gameStarted = true
         enableButtons()
+        disablePlayButton()
+    }
+})
+
+$('#playButton').on('click', async function () {
+    if (!gameStarted) {
+        nextSequence()
+        gameStarted = true
+        enableButtons()
+        disablePlayButton()
     }
 })
 
@@ -94,4 +105,12 @@ function enableButtons() {
 
 function disableButtons() {
     $("div[type='button']").addClass('disabled')
+}
+
+function disablePlayButton() {
+    $('#playButton').addClass('disabled ui-disabled')
+}
+
+function enablePlayButton() {
+    $('#playButton').removeClass('disabled ui-disabled')
 }

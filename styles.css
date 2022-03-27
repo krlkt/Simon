@@ -1,13 +1,30 @@
 body {
   text-align: center;
   background-color: #011F3F;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
 }
 
 #level-title {
   font-family: 'Press Start 2P', cursive;
+  line-height: 1.4;
   font-size: 3rem;
   margin:  5%;
   color: #FEF2BF;
+}
+
+#playButton {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.5rem;
+
+  padding: 3%;
+  margin: 5% 0;
+  border-radius: 100px;
 }
 
 .container {
@@ -54,4 +71,9 @@ body {
 
 .disabled {
   pointer-events:none;
+}
+
+.ui-disabled {
+  display: none;
+  background-color: #746f6f;
 }
