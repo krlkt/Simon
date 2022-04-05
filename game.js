@@ -63,8 +63,8 @@ async function pressed(color) {
 // button on click
 $("div[type='button']").click(async function (event) {
     var userChosenColor = event.target.id
-    pressed(userChosenColor)
-    playSound(userChosenColor)
+    await pressed(userChosenColor)
+    await playSound(userChosenColor)
     userClickedPattern.push(userChosenColor)
     if (gamePattern[currentlyCheckingArrayPosition] == userChosenColor) {
         currentlyCheckingArrayPosition++;
